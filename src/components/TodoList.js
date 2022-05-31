@@ -2,7 +2,8 @@ import TodoItem from './TodoItem';
 
 const TodoList = () => {
 	return (<ul>
-		<TodoItem />
+		<TodoItem label='Pet a cat' isImportant />
+		<TodoItem label='Feed a cat' />
 	</ul>);
 };
 

@@ -1,6 +1,13 @@
-const TodoItem = () => {
+const TodoItem = ({
+	label,
+	isImportant = false
+}) => {
 	return (
-		<li>Item</li>
+		<li
+			className={isImportant ? 'important' : ''}
+		>
+			{ label }
+		</li>
 	);
 };
 
