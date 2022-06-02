@@ -1,5 +1,6 @@
 import './index.css';
 
+import Header from "./components/Header";
 import SearchPanel from "./components/SearchPanel";
 import TodoList from "./components/TodoList";
 
@@ -13,7 +14,8 @@ const App = () => {
 	];
 
 	return (
-		<div id="app">
+		<div id="app" className='App p-4 fs-5'>
+			<Header />
 			<SearchPanel />
 			<TodoList todos={todos} />
 		</div>

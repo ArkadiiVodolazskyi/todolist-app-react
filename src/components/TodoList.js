@@ -6,18 +6,10 @@ const TodoList = ({ todos }) => {
 	const elems = todos.map((todo) => {
 		return (
 			<TodoItem {...todo} key={uuidv4()} />
-
-			// same as:
-
-			// <TodoItem
-			// 	label={todo.label}
-			// 	isImportant={todo.isImportant}
-			// 	key={uuidv4()}
-			// />
 		);
 	});
 
-	return (<ul>
+	return (<ul className='TodoList list-group'>
 		{elems}
 	</ul>);
 };
