@@ -1,4 +1,4 @@
-import TodoItem from './TodoItem';
+import TodoItem from '../TodoItem';
 import { v4 as uuidv4 } from 'uuid';
 
 const TodoList = ({ todos }) => {

@@ -1,0 +1,8 @@
+body {
+	background-color: gainsboro;
+}
+
+#app {
+	max-width: 600px;
+	margin: auto;
+}

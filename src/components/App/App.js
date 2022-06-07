@@ -1,8 +1,8 @@
-import './index.css';
+import './App.css';
 
-import Header from "./components/Header";
-import SearchPanel from "./components/SearchPanel";
-import TodoList from "./components/TodoList";
+import Header from "../Header";
+import SearchPanel from "../SearchPanel";
+import TodoList from "../TodoList";
 
 const App = () => {
 
