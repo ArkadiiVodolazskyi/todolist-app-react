@@ -1,3 +1,12 @@
+.TodoItem {
+	transition: background-color .3s ease;
+}
+.TodoItem:hover {
+	background-color: aqua;
+}
+.TodoItem_label {
+	cursor: pointer;
+}
 .important {
 	font-weight: 700;
 	color: tomato;
