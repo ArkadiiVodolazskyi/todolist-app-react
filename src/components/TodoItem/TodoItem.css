@@ -1,5 +1,12 @@
 .TodoItem {
-	transition: background-color .3s ease;
+	user-select: none;
+	transition: all .3s;
+}
+.TodoItem.done {
+	opacity: .5;
+	text-decoration: line-through;
+	color: inherit;
+	font-weight: inherit;
 }
 .TodoItem:hover {
 	background-color: aqua;
