@@ -1,11 +1,17 @@
 import TodoItem from '../TodoItem';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDelete }) => {
 
-	const elems = todos.map((todo) => {
+	const elems = todos.map((todo, index) => {
+		const key = uuidv4();
 		return (
-			<TodoItem {...todo} key={uuidv4()} />
+			<TodoItem
+				{...todo}
+				index={index}
+				key={key}
+				onDelete={() => onDelete(index)}
+			/>
 		);
 	});
 
