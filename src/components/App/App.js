@@ -25,13 +25,28 @@ export default class App extends React.Component {
 		});
 	}
 
+	onAdd = (title) => {
+		this.setState(({todos}) => {
+			const new_todos = [...todos, {
+				label: title,
+				isImportant: false
+			}];
+			return {
+				todos: new_todos
+			};
+		});
+		console.log(`Added: ${title}`);
+	}
+
 	render() {
 		const { todos } = this.state;
 
 		return (
 			<div id="app" className='App p-4 fs-5'>
 				<Header />
-				<SearchPanel />
+				<SearchPanel
+					onAdd={this.onAdd}
+				/>
 				<TodoList
 					todos={todos}
 					onDelete={this.onDelete}
