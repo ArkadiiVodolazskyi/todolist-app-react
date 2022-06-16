@@ -35,7 +35,26 @@ export default class App extends React.Component {
 				todos: new_todos
 			};
 		});
-		console.log(`Added: ${title}`);
+	}
+
+	onToggleImportant = (index) => {
+		const new_todos = [...this.state.todos];
+		new_todos[index].isImportant = !new_todos[index].isImportant;
+		this.setState(({todos}) => {
+			return {
+				todos: new_todos
+			};
+		});
+	}
+
+	onToggleDone = (index) => {
+		const new_todos = [...this.state.todos];
+		new_todos[index].isDone = !new_todos[index].isDone;
+		this.setState(({todos}) => {
+			return {
+				todos: new_todos
+			};
+		});
 	}
 
 	render() {
@@ -43,13 +62,17 @@ export default class App extends React.Component {
 
 		return (
 			<div id="app" className='App p-4 fs-5'>
-				<Header />
+				<Header
+
+				/>
 				<SearchPanel
 					onAdd={this.onAdd}
 				/>
 				<TodoList
 					todos={todos}
 					onDelete={this.onDelete}
+					onToggleImportant={this.onToggleImportant}
+					onToggleDone={this.onToggleDone}
 				/>
 			</div>
 		);

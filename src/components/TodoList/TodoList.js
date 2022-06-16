@@ -1,7 +1,12 @@
 import TodoItem from '../TodoItem';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = ({ todos, onDelete }) => {
+const TodoList = ({
+	todos,
+	onDelete,
+	onToggleImportant,
+	onToggleDone
+}) => {
 
 	const elems = todos.map((todo, index) => {
 		const key = uuidv4();
@@ -11,6 +16,8 @@ const TodoList = ({ todos, onDelete }) => {
 				index={index}
 				key={key}
 				onDelete={() => onDelete(index)}
+				onToggleImportant={() => onToggleImportant(index)}
+				onToggleDone={() => onToggleDone(index)}
 			/>
 		);
 	});
