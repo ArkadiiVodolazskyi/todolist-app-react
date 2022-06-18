@@ -62,13 +62,28 @@ export default class App extends React.Component {
 		});
 	}
 
+	calcTodoAmount = () => {
+		return this.state.todos.reduce(
+			(sum, el) => sum + !el.isDone,
+  		0
+		);
+	}
+
+	calcDoneAmount = () => {
+		return this.state.todos.reduce(
+			(sum, el) => sum + el.isDone,
+  		0
+		);
+	}
+
 	render() {
 		const { todos } = this.state;
 
 		return (
 			<div id="app" className='App p-4 fs-5'>
 				<Header
-
+					todoAmount={this.calcTodoAmount()}
+					doneAmount={this.calcDoneAmount()}
 				/>
 				<SearchPanel
 					onAdd={this.onAdd}
