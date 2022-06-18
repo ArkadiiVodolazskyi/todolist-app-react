@@ -7,12 +7,20 @@ import TodoList from "../TodoList";
 
 export default class App extends React.Component {
 
+	createItem = (title) => {
+		return {
+			label: title,
+			isImportant: false,
+			isDone: false
+		}
+	}
+
 	state = {
 		todos: [
-			{ label: 'Pet a cat', isImportant: false },
-			{ label: 'Feed a cat', isImportant: true },
-			{ label: 'Walk a cat', isImportant: false },
-			{ label: 'Walk myself', isImportant: false },
+			this.createItem('Pet a cat'),
+			this.createItem('Feed a cat'),
+			this.createItem('Walk a cat'),
+			this.createItem('Walk myself')
 		]
 	}
 
@@ -27,10 +35,7 @@ export default class App extends React.Component {
 
 	onAdd = (title) => {
 		this.setState(({todos}) => {
-			const new_todos = [...todos, {
-				label: title,
-				isImportant: false
-			}];
+			const new_todos = [...todos, this.createItem(title)];
 			return {
 				todos: new_todos
 			};
