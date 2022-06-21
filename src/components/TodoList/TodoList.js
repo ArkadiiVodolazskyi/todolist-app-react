@@ -22,7 +22,7 @@ const TodoList = ({
 		);
 	});
 
-	return (<ul className='TodoList list-group'>
+	return (<ul className='TodoList list-group py-2'>
 		{elems}
 	</ul>);
 };

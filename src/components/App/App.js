@@ -4,6 +4,7 @@ import './App.css';
 import Header from "../Header";
 import SearchPanel from "../SearchPanel";
 import TodoList from "../TodoList";
+import AddPanel from "../AddPanel";
 
 export default class App extends React.Component {
 
@@ -76,9 +77,21 @@ export default class App extends React.Component {
 		);
 	}
 
-	render() {
-		const { todos } = this.state;
+	writeSearchQuery = (searchQuery) => {
+		this.setState(() => {
+			return {
+				search_query: searchQuery
+			};
+		});
+	}
 
+	filterTodos = () => {
+		if (!this.state.search_query) { return this.state.todos; }
+		const filtered_todos = this.state.todos.filter(todo => todo.label.toLowerCase().includes(this.state.search_query));
+		return filtered_todos;
+	}
+
+	render() {
 		return (
 			<div id="app" className='App p-4 fs-5'>
 				<Header
@@ -86,13 +99,16 @@ export default class App extends React.Component {
 					doneAmount={this.calcDoneAmount()}
 				/>
 				<SearchPanel
-					onAdd={this.onAdd}
+					writeSearchQuery={this.writeSearchQuery}
 				/>
 				<TodoList
-					todos={todos}
+					todos={this.filterTodos()}
 					onDelete={this.onDelete}
 					onToggleImportant={this.onToggleImportant}
 					onToggleDone={this.onToggleDone}
+				/>
+				<AddPanel
+					onAdd={this.onAdd}
 				/>
 			</div>
 		);
