@@ -6,15 +6,11 @@ export default class SearchPanel extends React.Component {
 		search_query: ''
 	}
 
-	writeSearchQuery = this.props.writeSearchQuery;
-
 	changeSearchQuery = (e) => {
-		this.setState(() => {
-			return {
-				search_query: e.target.value
-			};
-		});
-		this.writeSearchQuery(this.state.search_query);
+		const search_query = e.target.value;
+		this.setState({ search_query });
+		this.props.writeSearchQuery( search_query ); // + Correct
+		// this.props.writeSearchQuery( this.state.search_query ); // Incorrect
 	}
 
 	render() {

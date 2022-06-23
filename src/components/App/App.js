@@ -22,7 +22,8 @@ export default class App extends React.Component {
 			this.createItem('Feed a cat'),
 			this.createItem('Walk a cat'),
 			this.createItem('Walk myself')
-		]
+		],
+		search_query: ''
 	}
 
 	onDelete = (index) => {
@@ -77,21 +78,18 @@ export default class App extends React.Component {
 		);
 	}
 
-	writeSearchQuery = (searchQuery) => {
-		this.setState(() => {
-			return {
-				search_query: searchQuery
-			};
-		});
-	}
-
-	filterTodos = () => {
-		if (!this.state.search_query) { return this.state.todos; }
-		const filtered_todos = this.state.todos.filter(todo => todo.label.toLowerCase().includes(this.state.search_query));
-		return filtered_todos;
+	writeSearchQuery = (search_query) => {
+		this.setState({ search_query });
 	}
 
 	render() {
+		const { todos, search_query } = this.state;
+
+		const filterTodos = () => {
+			if (search_query.length === 0) { return todos; }
+			return todos.filter(todo => todo.label.toLowerCase().includes(search_query.toLowerCase()));
+		}
+
 		return (
 			<div id="app" className='App p-4 fs-5'>
 				<Header
@@ -102,7 +100,7 @@ export default class App extends React.Component {
 					writeSearchQuery={this.writeSearchQuery}
 				/>
 				<TodoList
-					todos={this.filterTodos()}
+					todos={filterTodos()}
 					onDelete={this.onDelete}
 					onToggleImportant={this.onToggleImportant}
 					onToggleDone={this.onToggleDone}
