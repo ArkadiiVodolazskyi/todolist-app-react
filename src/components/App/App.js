@@ -24,6 +24,7 @@ export default class App extends React.Component {
 			this.createItem('Walk myself')
 		],
 		search_query: '',
+		btnsList: [ 'all', 'active', 'done' ],
 		category: 'all'
 	}
 
@@ -88,21 +89,28 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		const { todos, search_query, category } = this.state;
+		const { todos, search_query, btnsList, category } = this.state;
 
-		const filterTodosBySearch = () => {
+		const filterTodosBySearch = (todos, search_query) => {
 			if (search_query.length === 0) { return todos; }
 			return todos.filter(todo => todo.label.toLowerCase().includes(search_query.toLowerCase()));
 		}
 
-		const filterTodosByCategory = () => {
-			if (category === 'all') { return todos; }
-			const filteredTodosBySearch = filterTodosBySearch();
-			return filteredTodosBySearch.filter((todo) => {
-				if (category === 'active') { return todo.isDone === false; }
-				if (category === 'done') { return todo.isDone === true; }
-			})
+		const filterTodosByCategory = (todos, category) => {
+			switch( category ) {
+				case 'all':
+					return todos;
+				case 'active':
+					return todos.filter(todo => !todo.isDone);
+				case 'done':
+					return todos.filter(todo => todo.isDone);
+				default:
+					return todos;
+			}
 		}
+
+		const filteredTodos = filterTodosByCategory(
+			filterTodosBySearch(todos, search_query), category);
 
 		return (
 			<div id="app" className='App p-4 fs-5'>
@@ -111,11 +119,13 @@ export default class App extends React.Component {
 					doneAmount={this.calcDoneAmount()}
 				/>
 				<SearchPanel
+					btnsList={btnsList}
+					category={category}
 					writeSearchQuery={this.writeSearchQuery}
 					writeCategoryQuery={this.writeCategoryQuery}
 				/>
 				<TodoList
-					todos={filterTodosByCategory()}
+					todos={filteredTodos}
 					onDelete={this.onDelete}
 					onToggleImportant={this.onToggleImportant}
 					onToggleDone={this.onToggleDone}

@@ -1,10 +1,11 @@
 import React from 'react';
 import './SearchPanel.css';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class SearchPanel extends React.Component {
 	state = {
 		search_query: '',
-		category: 'all'
+		category: this.props.category
 	}
 
 	changeSearchQuery = (e) => {
@@ -30,6 +31,20 @@ export default class SearchPanel extends React.Component {
 			);
 		}
 
+		const { btnsList } = this.props;
+		const btnsHtml = btnsList.map(btn => {
+			return (
+				<button
+					type="button"
+					className={"category_btn btn" + getBtnClass( btn )}
+					data-category={ btn }
+					key={ uuidv4() }
+				>
+					{ btn.toUpperCase() }
+				</button>
+			);
+		});
+
 		return (
 			<div className="SearchPanel d-flex justify-content-between align-items-center py-2 gap-3">
 				<form
@@ -43,25 +58,11 @@ export default class SearchPanel extends React.Component {
 						placeholder='Search task title'
 					/>
 				</form>
-				<div className="btn-group btn-group-md" onClick={this.changeCategory}>
-					<button
-						type="button"
-						className={"category_btn btn" + getBtnClass('all')}
-						data-category="all">
-						All
-					</button>
-					<button
-						type="button"
-						className={"category_btn btn" + getBtnClass('active')}
-						data-category="active">
-						Active
-					</button>
-					<button
-						type="button"
-						className={"category_btn btn" + getBtnClass('done')}
-						data-category="done">
-						Done
-					</button>
+				<div
+					className="btn-group btn-group-md"
+					onClick={this.changeCategory}
+				>
+					{ btnsHtml }
 				</div>
 			</div>
 		);
