@@ -23,7 +23,8 @@ export default class App extends React.Component {
 			this.createItem('Walk a cat'),
 			this.createItem('Walk myself')
 		],
-		search_query: ''
+		search_query: '',
+		category: 'all'
 	}
 
 	onDelete = (index) => {
@@ -82,12 +83,25 @@ export default class App extends React.Component {
 		this.setState({ search_query });
 	}
 
-	render() {
-		const { todos, search_query } = this.state;
+	writeCategoryQuery = (category) => {
+		this.setState({ category });
+	}
 
-		const filterTodos = () => {
+	render() {
+		const { todos, search_query, category } = this.state;
+
+		const filterTodosBySearch = () => {
 			if (search_query.length === 0) { return todos; }
 			return todos.filter(todo => todo.label.toLowerCase().includes(search_query.toLowerCase()));
+		}
+
+		const filterTodosByCategory = () => {
+			if (category === 'all') { return todos; }
+			const filteredTodosBySearch = filterTodosBySearch();
+			return filteredTodosBySearch.filter((todo) => {
+				if (category === 'active') { return todo.isDone === false; }
+				if (category === 'done') { return todo.isDone === true; }
+			})
 		}
 
 		return (
@@ -98,9 +112,10 @@ export default class App extends React.Component {
 				/>
 				<SearchPanel
 					writeSearchQuery={this.writeSearchQuery}
+					writeCategoryQuery={this.writeCategoryQuery}
 				/>
 				<TodoList
-					todos={filterTodos()}
+					todos={filterTodosByCategory()}
 					onDelete={this.onDelete}
 					onToggleImportant={this.onToggleImportant}
 					onToggleDone={this.onToggleDone}
