@@ -1,11 +1,9 @@
 import React from 'react';
 import './SearchPanel.css';
-import { v4 as uuidv4 } from 'uuid';
 
 export default class SearchPanel extends React.Component {
 	state = {
-		search_query: '',
-		category: this.props.category
+		search_query: ''
 	}
 
 	changeSearchQuery = (e) => {
@@ -17,7 +15,6 @@ export default class SearchPanel extends React.Component {
 	changeCategory = (e) => {
 		if ( e.target.classList.contains('category_btn') ) {
 			const category = e.target.getAttribute('data-category');
-			this.setState({ category });
 			this.props.writeCategoryQuery( category );
 		}
 	}
@@ -38,7 +35,7 @@ export default class SearchPanel extends React.Component {
 					type="button"
 					className={"category_btn btn" + getBtnClass( btn )}
 					data-category={ btn }
-					key={ uuidv4() }
+					key={ btn }
 				>
 					{ btn.toUpperCase() }
 				</button>
